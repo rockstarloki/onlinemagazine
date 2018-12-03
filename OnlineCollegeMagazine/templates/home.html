@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+{#    <style="background: url({% static 'bg.jpg' %}")#}
+
+        <table align="center" width="800">
+            <tr>
+                <th>
+                    <marquee><i><h3> Welcome to the my world</h3> </i></marquee>
+                </th>
+            </tr>
+            <tr><th>
+                <h1> Rockstar Magazine </h1>
+            </th>
+            </tr>
+        </table>
+        <table align="center" border="" width="800">
+            <tr>
+
+            </tr>
+            <tr>
+                <th width="200"><a href="/openhome/?type=home">Home</a></th>
+                <th width="200"><a href="/openuser/?type=h_user">User</a></th>
+                <th width="200"><a href="/openmoderator/?type=h_moderator">Moderator</a></th>
+                <th width="200"><a href="/admin/" target="_blank">Admin</a></th>
+            </tr>
+        </table>
+
+        {% if type == "home" %}
+            <br>
+            <table align="center" width="800">
+
+                <tr>
+                    <th align="center">
+                        <font face="Harlow-Solid-Italic" size="5"><i>
+                        "Fashion you can buy, but style you possess. The key to style is learning who you are, which takes years. There's no how-to road map to style. It's about self expression and, above all, attitude."
+                        </i></font>
+                    </th>
+                </tr>
+                <th>
+
+
+                </th>
+            </table>
+        {% endif %}
+
+        {% if type == "h_user" %}
+            <form action="/userLogin/" method="post">
+            {% csrf_token %}
+                <br>
+            <table align="center" width="400">
+                <tr><th> User Login </th></tr>
+                <tr><td align="center"><input type="email" placeholder="Enter Email-id" name="ur_email" required></td></tr>
+                <tr><td align="center"><input type="password" placeholder="password" name="ur_pass" required></td></tr>
+                <tr><td align="center"><input type="submit" value="Login"></td></tr>
+                <tr>
+                    <th>
+                        <a href="/userRegistertion/?type=h_New User"> New User </a>
+                    </th>
+                </tr>
+            </table>
+            </form>
+
+        {% endif %}
+
+        {% if type == "h_New User" %}
+            <form action="/userRegister/" method="post">
+            {% csrf_token %}
+                <br>
+            <table align="center">
+                <tr><th> User Registration </th></tr>
+                <tr><td><input type="text" placeholder="Name" name="ur_uname" required></td></tr>
+                <tr><td><input type="number" placeholder="Contact No" name="ur_contact" required></td></tr>
+                <tr><td><input type="email" placeholder="Email-Id" name="ur_email" required></td></tr>
+                <tr><td><input type="password" placeholder="Password" name="ur_pass" required></td></tr>
+                <tr><td><input type="submit" value="Register" ></td></tr>
+
+            </table>
+            </form>
+        {% endif %}
+
+        {% if type == "h_moderator" %}
+            <form action="/moderatorLogin/" method="post">
+            {% csrf_token %}
+                <br>
+            <table align="center" width="400">
+                <tr><th> Moderator Login </th></tr>
+                <tr><td align="center"><input type="email" placeholder="Enter Email-id" name="mr_email" required></td></tr>
+                <tr><td align="center"><input type="password" placeholder="password" name="mr_pass" required></td></tr>
+                <tr><td align="center"><input type="submit" value="Login"></td></tr>
+                <tr>
+                    <th>
+                        <a href="/newModerator/?type=h_New Moderator"> New Moderator </a>
+                    </th>
+                </tr>
+            </table>
+            </form>
+        {% endif %}
+
+        {% if type == "h_New Moderator" %}
+            <form action="/moderatorRegister/?type=h_New Moderator" method="post">
+            {% csrf_token %}
+                <br>
+            <table align="center">
+                <tr><th> Moderator Registration </th></tr>
+                <tr><td><input type="text" placeholder="Name" name="mr_uname" required></td></tr>
+                <tr><td><input type="number" placeholder="Contact No" name="mr_contact" required></td></tr>
+                <tr><td><input type="email" placeholder="Email-Id" name="mr_email" required></td></tr>
+                <tr><td><input type="password" placeholder="Password" name="mr_pass" required></td></tr>
+                <tr><td><input type="submit" value="Register" ></td></tr>
+
+            </table>
+            </form>
+        {% endif %}
+</body>
+</html>
