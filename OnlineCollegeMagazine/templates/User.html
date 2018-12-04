@@ -1,2 +1,99 @@
 
-        <marquee><h2> Welcome User </h2></marquee>
+        <table align="center"  width="800">
+            <tr><th colspan="5">
+                 <marquee><h2> Welcome {{ data.name }} </h2></marquee>
+
+                <i> <h2>  {{ data.name }}  </h2></i>
+
+            </th>
+            </tr>
+        </table>
+        <table align="center" border="2" width="800">
+            <tr>
+                <th><a href="/magazine/?type=magazine"> Magazine </a></th>
+                <th><a href="/ur_viewprofile/?type={{ data.email }}"> Vew Profile</a></th>
+                <th><a href="/ur_updateprofile/?type={{ data.email }}"> Update Profile</a></th>
+                <th><a href="/postarticle/?type=postartucle"> Post Article </a></th>
+                <th><a href="/logout/?type=home"> Logout </a></th>
+            </tr>
+            <tr>
+
+            </tr>
+            </table>
+
+                {% if type == "magazine" %}
+                    <table align="center" width="800">
+            <br>
+            <tr>
+                <th colspan="5"><marquee><i>
+                    WELCOME TO ROCKSTAR MAGAINE
+                </i></marquee></th>
+            </tr>
+            <br>
+            <tr>
+                <th align="left">
+                    Fashion
+                </th>
+            </tr>
+            <br>
+            <tr>
+                <td align="center">
+                    "Style is the only thing you can’t buy. It’s not in a shopping bag, a label, or a price tag. It’s something reflected from our soul to the outside world—an emotion.”
+                </td>
+            </tr>
+            <tr>
+                <th align="left">
+                    Health
+                </th>
+            </tr>
+            <br>
+            <tr>
+                <td align="center">
+                    "Look up, laugh loud, talk big, keep the color in your cheek and the fire in your eye, adorn your person, maintain your health, your beauty and your animal spirits."
+                </td>
+            </tr>
+        </table>
+                {% endif %}
+
+
+             {% if ur_viewprofile %}
+                    <table align="center">
+                        <tr><th colspan="2"> Profile </th></tr>
+                        <tr><th>NAME</th><td>{{ ur_viewprofile.name }}</td></tr>
+                        <tr><th>CONTACT</th><td>{{ ur_viewprofile.contact }}</td></tr>
+                        <tr><th>EMAIL-ID</th><td>{{ ur_viewprofile.email }}</td></tr>
+                        <tr><th>PASSWORD</th><td>{{ ur_viewprofile.password }}</td></tr>
+                    </table>
+            {% endif %}
+
+
+            {% if ur_updateprofile %}
+            <form action="/ur_update/?type={{ ur_updateprofiler.email }}" method="post">
+            {% csrf_token %}
+                <br>
+            <table align="center">
+                <tr><th> User Profile </th></tr>
+
+                <tr><td><input type="text" placeholder="Name" name="ur_name" value="{{ ur_updateprofile.name }}" required></td></tr>
+                <tr><td><input type="number" placeholder="Contact No" name="ur_contact" value="{{ ur_updateprofile.contact }}" required></td></tr>
+                <tr><td><input type="email" placeholder="Email-Id" name="ur_email" value="{{ ur_updateprofile.email }}" required></td></tr>
+                <tr><td><input type="password" placeholder="Password" name="ur_password" value="{{ ur_updateprofile.password }}" required></td></tr>
+                <tr><td><input type="submit" value="Update" ></td></tr>
+
+            </table>
+            </form>
+        {% endif %}
+
+
+        {% if postarticle %}
+            <table align="center">
+            <tr>
+                <td>
+                    <div class="select2-dropdown">
+
+                    </div>
+                </td>
+            </tr>
+
+            </table>
+        {% endif %}

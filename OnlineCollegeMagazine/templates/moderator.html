@@ -1,10 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Moderator</title>
-</head>
-<body>
-        <marquee><h2> Welcome Moderator </h2></marquee>
-</body>
-</html>
+
+        <table align="center"  width="800">
+            <tr><th colspan="5">
+                 <marquee><h2> Welcome {{ data.name }} </h2></marquee>
+
+                <h2><i> {{ data.name }} </i> </h2>
+
+            </th>
+            </tr>
+        </table>
+        <table align="center" border="2" width="800">
+            <tr>
+                <th><a href="/magazine/?type=magazine"> Magazine </a></th>
+                <th><a href="/mr_viewprofile/?type={{ data.email }}"> Vew Profile</a></th>
+                <th><a href="/mr_updateprofile/?type={{ data.email }}"> Update Profile</a></th>
+                <th><a href="/validatepost/?type=post"> Validate Article </a></th>
+                <th><a href="/logout/?type=home"> Logout </a></th>
+            </tr>
+            <tr>
+
+            </tr>
+            </table>
+
+                {% if magazine %}
+                    <table align="center" width="800">
+            <br>
+            <tr>
+                <th colspan="5"><marquee><i>
+                    WELCOME TO ROCKSTAR MAGAINE
+                </i></marquee></th>
+            </tr>
+            <br>
+            <tr>
+                <th align="left">
+                    Fashion
+                </th>
+            </tr>
+            <br>
+            <tr>
+                <td align="center">
+                    "Style is the only thing you can’t buy. It’s not in a shopping bag, a label, or a price tag. It’s something reflected from our soul to the outside world—an emotion.”
+                </td>
+            </tr>
+            <tr>
+                <th align="left"><h4>
+                    Health
+                </h4></th>
+            </tr>
+            <br>
+            <tr>
+                <td align="center">
+                    "Look up, laugh loud, talk big, keep the color in your cheek and the fire in your eye, adorn your person, maintain your health, your beauty and your animal spirits."
+                </td>
+            </tr>
+        </table>
+                {% endif %}
+
+
+        {% if mr_viewprofile %}
+            <br>
+            <table align="center" border="2">
+                <tr><th colspan="2"> Moderator Profile </th></tr>
+                <tr>
+                    <td>NAME</td>
+                    <td>{{ mr_viewprofile.name }}</td>
+                </tr>
+                <tr>
+                    <td>CONTACT NO</td>
+                    <td>{{ mr_viewprofile.contact }}</td>
+                </tr>
+                <tr>
+                    <td>EMAIL-ID</td>
+                    <td>{{ mr_viewprofile.email }}</td>
+                </tr>
+                <tr>
+                    <td>PASSWORD</td>
+                    <td>{{ mr_viewprofile.password }}</td>
+                </tr>
+            </table>
+        {% endif %}
+
+        {% if mr_updateprofile %}
+            <form action="/mr_update/?type={{ mr_updateprofile.email }}" method="post">
+            {% csrf_token %}
+                <br>
+            <table align="center">
+                <tr><th> Moderator Profile </th></tr>
+                <tr><td><input type="text" placeholder="Name" name="mr_name" value="{{ mr_updateprofile.name }}" required></td></tr>
+                <tr><td><input type="number" placeholder="Contact No" name="mr_contact" value="{{ mr_updateprofile.contact }}" required></td></tr>
+                <tr><td><input type="email" placeholder="Email-Id" name="mr_email" value="{{ mr_updateprofile.email }}" required></td></tr>
+                <tr><td><input type="password" placeholder="Password" name="mr_password" value="{{ mr_updateprofile.password }}" required></td></tr>
+                <tr><td align="center"><input type="submit" value="Update" ></td></tr>
+
+            </table>
+            </form>
+        {% endif %}

@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
 from .models import ModeratorRegistration
-from .models import  FacultyRegistration
-from .models import StudentRegistration
 from .models import UserRegistration
+
 
 def openHome(request):
     type = "home"
@@ -39,7 +37,7 @@ def showModeratorRegsitrationpage(request):
 
 
 def moderatorRegister(request):
-    name = request.POST.get("mr_uname")
+    name = request.POST.get("mr_name")
     contact = request.POST.get("mr_contact")
     email = request.POST.get("mr_email")
     password = request.POST.get("mr_pass")
@@ -47,7 +45,7 @@ def moderatorRegister(request):
     mr = ModeratorRegistration(name=name, contact=contact, email=email, password=password)
     mr.save()
 
-    return redirect("/openmoderator/?type=h_moderator")
+    return render(request,"moderator.html")
 
 
 def userLogin(request):
@@ -57,9 +55,14 @@ def userLogin(request):
     qs = UserRegistration.objects.filter(email=uname,password=upass)
     print(qs)
     if qs:
-        return render(request,"User.html")
+        pas = UserRegistration.objects.get(email=uname) #for getting the all data to print on html page
+        return render(request,"User.html",{"data":pas})
     else:
         return render(request,"home.html",{"type":"h_New User"})
+
+
+
+
 
 
 def moderatorLogin(request):
@@ -69,6 +72,71 @@ def moderatorLogin(request):
     qs = ModeratorRegistration.objects.filter(email=uname, password=upass)
     print(qs)
     if qs:
-        return render(request,"moderator.html")
+
+        pas = ModeratorRegistration.objects.get(email=uname)
+        return render(request,"moderator.html",{"data":pas})
     else:
         return render(request, "home.html",{"type":"h_New Moderator"})
+
+
+def showmagazine(request):
+    type = request.GET.get("type")
+    return render(request, "magazine.html", {"type": type})
+
+
+def mr_viewprofile(request):
+    email = request.GET.get("type")
+    mr = ModeratorRegistration.objects.get(email=email)
+
+    return render(request, "moderator.html", {"mr_viewprofile": mr, "data": mr})
+
+def mr_updateprofile(request):
+    email = request.GET.get("type")
+    mr = ModeratorRegistration.objects.get(email=email)
+
+    return render(request,"moderator.html",{"mr_updateprofile":mr,"data":mr})
+
+
+def mr_update(request):
+    mr_name = request.POST.get("mr_name")
+    mr_contact = request.POST.get("mr_contact")
+    mr_email = request.POST.get("mr_email")
+    mr_password = request.POST.get("mr_password")
+
+    mr_updateprofile = ModeratorRegistration(name=mr_name, contact=mr_contact, email=mr_email, password=mr_password)
+    mr_updateprofile.save()
+
+    return render(request, "moderator.html", {"mr_updateprofile": mr_updateprofile})
+
+
+def ur_viewprofile(request):
+    email = request.GET.get("type")
+    ur = UserRegistration.objects.get(email=email)
+
+    return render(request, "User.html", {"ur_viewprofile": ur, "data": ur})
+
+
+def ur_updateprofile(request):
+    email = request.GET.get("type")
+    ur = UserRegistration.objects.get(email=email)
+
+    return render(request, "User.html", {"ur_updateprofile": ur, "data": ur})
+
+def ur_update(request):
+    ur_name = request.POST.get("ur_name")
+    ur_contact = request.POST.get("ur_contact")
+    ur_email = request.POST.get("ur_email")
+    ur_password = request.POST.get("ur_password")
+
+    ur_updateprofile = UserRegistration(name=ur_name, contact=ur_contact, email=ur_email, password=ur_password)
+    ur_updateprofile.save()
+
+    return render(request, "User.html", {"ur_updateprofile": ur_updateprofile})
+
+def validatepost(request):
+    pass
+
+
+def postarticle(request):
+    type = request.GET.get("type")
+

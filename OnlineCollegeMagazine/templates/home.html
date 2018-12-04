@@ -84,13 +84,17 @@
             </form>
         {% endif %}
 
+{#            to Transform any input type letter in to the uppercase,lowercase,capitalize(fisrt letter only  capital) #}
+{#        style="text-transform :  uppercase/lowercase/capitalize "#}
+
+
         {% if type == "h_moderator" %}
             <form action="/moderatorLogin/" method="post">
             {% csrf_token %}
                 <br>
             <table align="center" width="400">
                 <tr><th> Moderator Login </th></tr>
-                <tr><td align="center"><input type="email" placeholder="Enter Email-id" name="mr_email" required></td></tr>
+                <tr><td align="center"><input type="email"  placeholder="Enter Email-id" name="mr_email" required></td></tr>
                 <tr><td align="center"><input type="password" placeholder="password" name="mr_pass" required></td></tr>
                 <tr><td align="center"><input type="submit" value="Login"></td></tr>
                 <tr>
@@ -108,7 +112,7 @@
                 <br>
             <table align="center">
                 <tr><th> Moderator Registration </th></tr>
-                <tr><td><input type="text" placeholder="Name" name="mr_uname" required></td></tr>
+                <tr><td><input type="text" placeholder="Name" name="mr_name" required></td></tr>
                 <tr><td><input type="number" placeholder="Contact No" name="mr_contact" required></td></tr>
                 <tr><td><input type="email" placeholder="Email-Id" name="mr_email" required></td></tr>
                 <tr><td><input type="password" placeholder="Password" name="mr_pass" required></td></tr>

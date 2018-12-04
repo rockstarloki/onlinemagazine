@@ -18,7 +18,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from magazine import views
-
+from magazine.views import ur_update, validatepost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,11 +31,23 @@ urlpatterns = [
     path('userRegistertion/',views.showUserRegsitrationpage),
     path('userRegister/',views.userRegister),
     path('userLogin/',views.userLogin),
+    path('logout/', views.openHome),
+    path('ur_viewprofile/',views.ur_viewprofile),
+    path('ur_updateprofile/',views.ur_updateprofile),
+    path('ur_update/',ur_update),
+    path('postarticle/',views.postarticle),
 
     path('openmoderator/',views.openModerator),
     path('newModerator/',views.showModeratorRegsitrationpage),
     path('moderatorRegister/',views.moderatorRegister),
-    path('moderatorLogin/',views.moderatorLogin)
+    path('moderatorLogin/',views.moderatorLogin),
+    path('logout/',views.openHome),
+    path('mr_viewprofile/',views.mr_viewprofile),
+    path('mr_updateprofile/',views.mr_updateprofile),
+    path('mr_update/',views.mr_update),
+    path('validatepost/',views.validatepost),
 
+
+    path('magazine/',views.showmagazine)
 
 ]
