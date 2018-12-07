@@ -275,14 +275,13 @@
         {% endif %}
 
         {% if validate == 'validate'%}
-            <br>
             <form action="/sendmail/?type={{ data.email }}" method="post">
             {% csrf_token %}
             <table align="center">
             <tr><th>
                 {% for x in articles %}
-                    {{ x.article_headline }}
-                    {{ x.article_dicription }}
+                   <tr><td>head line :</td><td>{{ x.article_headline }}</td></tr> <br>
+                   <tr><td>Discription :</td><td>{{ x.article_dicription }}</td></tr><br>
                 {% endfor %}
             </th></tr>
             <tr><td><input type="text" name="to" placeholder="enter email-id's"></td></tr>
