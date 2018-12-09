@@ -40,10 +40,7 @@
 				<div class="container">
 					<!-- social -->
 					<ul class="nav-social">
-						<li><a href="//"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="//"><i class="fa fa-twitter"></i></a></li>
-						<li><a href=//><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="//"><i class="fa fa-instagram"></i></a></li>
+
 					</ul>
 					<!-- /social -->
 
@@ -61,9 +58,9 @@
 							<form>
 								<input class="input" name="search" placeholder="Enter your search...">
 							</form>
-							<button class="nav-close search-close">
-								<span></span>
-							</button>
+{#							<button class="nav-close search-close">#}
+{#								<span></span>#}
+{#							</button>#}
 						</div>
 					</div>
 					<!-- /search & aside toggle -->
@@ -121,7 +118,7 @@
 
                     <table align="center"  width="800">
                             <tr><th colspan="5">
-                                <marquee><h3> Welcome The World </h3></marquee>
+                                <marquee><h3> Welcome To Look World </h3></marquee>
 
                              <h2 align="center" style="text-transform: initial">  {{ data.name }}  </h2>
                             </th>
@@ -150,7 +147,7 @@
                 <tr>
                     <th>
                         {% for x in tech %}
-                             <a href="/showusertech/?type={{ x.article_headline }}">{{ x.article_headline }} </a> <br>
+                             <a href="/showusertech/?type={{ x.article_headline }}-{{ data.email }}">{{ x.article_headline }} </a> <br>
                         {% endfor %}
                     </th>
                 </tr>
@@ -160,9 +157,11 @@
             {%if showusertech == 'showusertech' %}
                 <br>
                 <table align="center">
+                <tr><h3 align="center">Technology</h3></tr>
                 <tr>
                     <th>
                         {% for x in tech %}
+                            <tr><td><img src="{% static 'images/' %}{{ x.article_image }}.png"></td></tr>
                             <tr><th>Discription:</th></tr>
                             <tr><td>{{ x.article_dicription }}</td></tr>
                         {% endfor %}
@@ -173,14 +172,13 @@
 
             <!-- Showing fashion Artcles -->
             {% if fashion == 'fashion' %}
-                <br>
                 <table align="center">
                     <tr><th><h2>Fashion</h2></th></tr>
                     <tr>
                         <th>
                                 {% for x in fash %}
 
-                                    <a href="/showuserfashion/?type={{ x.article_headline }}">{{ x.article_headline }}</a><br>
+                                    <a href="/showuserfashion/?type={{ x.article_headline }}-{{ data.email }}">{{ x.article_headline }}</a><br>
 
                                 {% endfor %}
 
@@ -190,14 +188,17 @@
             {% endif %}
 
             {% if showuserfashion == 'showuserfashion' %}
-                <br>
-                <table align="center"></table>
+                <table align="center">
+                <tr><h3 align="center">Fashion</h3> </tr>
+
                 <tr><th>
-                    {% for x in data %}
+                    {% for x in fash %}
+                        <tr><td><img src="{% static 'images/' %}{{ x.article_image }}.png"></td></tr>
                         <tr><th>Discription :</th></tr><br>
                         <tr><td>{{ x.article_dicription }}</td></tr>
                     {% endfor %}
                 </th></tr>
+                </table>
             {% endif %}
             <!-- Showing Health Artcles -->
             {% if health ==  "health" %}
@@ -205,7 +206,7 @@
                 <tr><h2 align="center">Health</h2></tr>
                 <tr><td>
                     {% for x in heal %}
-                        <a href="/showuserhealth/?type={{ x.article_headline }}">{{ x.article_headline }}</a><br>
+                        <a href="/showuserhealth/?type={{ x.article_headline }}-{{ data.email }}">{{ x.article_headline }}</a><br>
                     {% endfor %}
                 </td>
                 </tr>
@@ -214,16 +215,17 @@
                 {% endif %}
 
                 {% if showuserhealth == 'showuserhealth' %}
-                    <br>
                     <table align="center">
+                    <tr><h3 align="center">Health</h3></tr>
                     <tr><th>
                         {% for x in heal %}
+                            <tr><td><img src="{% static 'images/' %}{{ x.article_image }}.png"></td></tr>
                             <tr><th>Discription</th></tr>
                             <tr><td>{{ x.article_dicription }}</td></tr>
                         {% endfor %}
                     </th></tr>
                     </table>
-    {% endif %}
+                {% endif %}
 
 
             <!-- User Updateprofile -->
@@ -245,18 +247,69 @@
         {% endif %}
 			<!-- User UpdateProfile -->
             {% if postarticle %}
-                <form action="/post/?type={{ postarticle.email }}" method="post">
+                <form action="/post/?type={{ postarticle.email }}" method="post" encrypt="multipart/form-data">
                     {% csrf_token %}
                 <table align="center">
                 <tr><th align="left"> Post Article </th></tr>
-                <tr><td><input type="text" placeholder="Enter Article Type" name="article_type" required></td></tr>
+                <tr><td>
+                    <select name="article_type">
+                        <option>--selct type--</option>
+                        <option>fashion</option>
+                        <option>technology</option>
+                        <option>health</option>
+                    </select>
+                </td></tr>
                 <tr><td><textarea placeholder="Enter article headline" name="article_headline" required></textarea></td></tr>
                 <tr><td><textarea placeholder="Enter article discription" name="article_discription" required></textarea></td></tr>
-                <tr><td><input type="file" name="article_image"></td></tr>
+{#                <tr><td><input type="file" name="file" ></td></tr>#}
+                    <tr><td><input type="hidden" name="user_email" value="{{ data.email }}"></td></tr>
                 <tr><td><input type="submit" value="Post" ></td></tr>
                 </table>
                 </form>
             {% endif %}
+
+            <!-- aboutus -->
+            {% if type == "aboutus" %}
+        <br>
+        <table align="center" >
+        <tr>
+            <td colspan="2"><h2> About us </h2></td>
+        </tr>
+        </table>
+        <!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-5">
+					<div class="section-row">
+						<div class="section-title">
+							<h2 class="title">Our Mission</h2>
+						</div>
+						<p>Our mission as an online news magazine is to ensure that Realnews,To be Earth’s most customer-centric company, where customers can find fact in the world.Organize the world’s information and make it universally accessible and useful. </p>
+						<blockquote class="blockquote">
+							<p>Infuse your life with action. Don't wait for it to happen. Make it happen. Make your own future. Make your own hope. Make your own love. And whatever your beliefs, honor your creator, not by passively waiting for grace to come down from upon high, but by doing what you can to make grace happen... yourself, right now, right down here on Earth.</p>
+							<footer class="blockquote-footer">Bradley Whitford</footer>
+						</blockquote>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="section-row">
+						<div class="section-title">
+							<h2 class="title">Our Vision</h2>
+						</div>
+						<p>We will publish a credible and influential magazine that will galvanise the public especially the government and decision makers into taking actions that will change the political, socio-economic landscape and society in general for the better.</p>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+    {% endif %}
 
 			</div>
 			<!-- /row -->
@@ -274,10 +327,10 @@
 						</div>
 						<p>Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.</p>
 						<ul class="contact-social">
-							<li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
+{#							<li><a href="/facebook/" class="social-facebook"><i class="fa fa-facebook"></i></a></li>#}
+{#							<li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>#}
+{#							<li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>#}
+{#							<li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>#}
 						</ul>
 					</div>
 				</div>
@@ -293,14 +346,14 @@
 			<div class="footer-bottom row">
 				<div class="col-md-6 col-md-push-6">
 					<ul class="footer-nav">
-						<li><a href="/openhome/">Home</a></li>
-						<li><a href="/aboutus/">About Us</a></li>
+						<li><a href="/openuserhome/?type={{ data.email }}">Home</a></li>
+						<li><a href="/useraboutus/type={{ data.email }}">About Us</a></li>
                     </ul>
 				</div>
 				<div class="col-md-6 col-md-pull-6">
 					<div class="footer-copyright">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Rockstar</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</div>
 				</div>

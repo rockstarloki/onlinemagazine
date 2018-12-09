@@ -39,13 +39,18 @@ urlpatterns = [
     path('aboutus/',views.aboutus),
 
     path('openmoderatorhome/',views.openmoderatorhome),
+    path('openmodaboutus/',views.openmodaboutus),
     path('openmoderator/', views.openModerator),
     path('newModerator/',views.showModeratorRegsitrationpage),
+    path('moderatorRegister/',views.moderatorRegister),
     path('moderatorLogin/',views.moderatorLogin),
     path('mr_viewprofile/', views.mr_viewprofile),
     path('mr_updateprofile/', views.mr_updateprofile),
     path('mr_update/', views.mr_update),
     path('validatepost/', views.validatepost),
+    path('valid/',views.valid),
+    path('send/',views.send),
+    path('sent/',views.sent),
     path('validate/',views.validate),
     path('sendmail/',views.sendmail),
 
@@ -57,6 +62,7 @@ urlpatterns = [
     path('showmodhealth/',views.showmodhealth),
 
     path('openuserhome/',views.openuserhome),
+    path('useraboutus/',views.useraboutus),
     path('openuser/',views.openUser),
     path('userRegistertion/',views.showUserRegsitrationpage),
     path('userRegister/',views.userRegister),
@@ -66,6 +72,7 @@ urlpatterns = [
     path('ur_update/',ur_update),
     path('postarticle/',views.postarticle),
     path('post/',views.post),
+    path('validarticle/',views.validarticle),
 
     path('openusertechnology/',views.openusertechnology),
     path('showusertech/',views.showusertech),

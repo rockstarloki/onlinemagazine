@@ -16,19 +16,39 @@ class ModeratorRegistration(models.Model):
     password = models.CharField(max_length=50)
 
 
-class Fashion(models.Model):
+class ModFashion(models.Model):
+    article_type = models.CharField(max_length=50)
+    article_headline = models.CharField(max_length=100)
+    article_dicription = models.CharField(max_length=500)
+    article_image = models.FileField()
+    user_email = models.CharField(max_length=100)
+
+class ModTechnology(models.Model):
+    article_type = models.CharField(max_length=50)
+    article_headline = models.CharField(max_length=100)
+    article_dicription = models.CharField(max_length=500)
+    article_image = models.FileField()
+    user_email = models.CharField(max_length=100)
+
+class ModHealth(models.Model):
+    article_type = models.CharField(max_length=50)
+    article_headline = models.CharField(max_length=100)
+    article_dicription = models.CharField(max_length=500)
+    article_image = models.FileField()
+    user_email = models.CharField(max_length=100)
+
+
+class HomeFashion(models.Model):
     article_headline = models.CharField(max_length=100)
     article_dicription = models.CharField(max_length=500)
     article_image = models.FileField()
 
-class Technology(models.Model):
+class HomeTechnology(models.Model):
     article_headline = models.CharField(max_length=100)
     article_dicription = models.CharField(max_length=500)
     article_image = models.FileField()
 
-class Health(models.Model):
+class HomeHealth(models.Model):
     article_headline = models.CharField(max_length=100)
     article_dicription = models.CharField(max_length=500)
     article_image = models.FileField()
-
-

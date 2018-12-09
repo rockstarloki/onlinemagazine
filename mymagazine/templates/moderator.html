@@ -40,10 +40,7 @@
 				<div class="container">
 					<!-- social -->
 					<ul class="nav-social">
-						<li><a href="//"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="//"><i class="fa fa-twitter"></i></a></li>
-						<li><a href=//><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="//"><i class="fa fa-instagram"></i></a></li>
+
 					</ul>
 					<!-- /social -->
 
@@ -58,12 +55,10 @@
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
-							<form>
-								<input class="input" name="search" placeholder="Enter your search...">
-							</form>
-							<button class="nav-close search-close">
-								<span></span>
-							</button>
+
+{#							<button class="nav-close search-close">#}
+{#								<span></span>#}
+{#							</button>#}
 						</div>
 					</div>
 					<!-- /search & aside toggle -->
@@ -117,23 +112,26 @@
 
                     <table align="center"  width="800">
                             <tr><th colspan="5">
-                                <marquee><h2> Welcome {{ data.name }} </h2></marquee>
+                                <marquee><h2> Welcome  Moderator </h2></marquee>
 
                              <h2 align="center" style="text-transform: uppercase">  {{ data.name }}  </h2>
                             </th>
                             </tr>
                         </table>
 
+                    <h4 align="center"> {{ meassage }}</h4>
+                    <h4 align="center"> {{ emailmessage }}</h4>
+
                     {% if fashion == 'fashion' %}
                         <br>
                     <table align="center">
-                    <tr><th><h2>Fashion</h2></th></tr>
+                    <tr><th><h2 align="center">Fashion</h2></th></tr>
                     <tr>
                         <td>
                             <table align="center">
                                 {% for x in fash %}
                                 <tr>
-                                    <td><a href="/showmodfashion/?type={{ x.article_headline }}">{{ x.article_headline }}</a> </td>
+                                    <td><a href="/showmodfashion/?type={{ x.article_headline }}-{{ data.email }}">{{ x.article_headline }}</a> </td>
                                 </tr><br>
                                 {% endfor %}
                             </table>
@@ -145,9 +143,10 @@
         {% if showmodfashion == 'showmodfashion' %}
         <br>
         <table align="center">
+        <tr><h3 align="center">Fashion</h3></tr>
         <tr>
             <th>
-                {% for x in data %}
+                {% for x in fash %}
                     <tr>
                     <th>Discription :</th>
                     </tr>
@@ -161,12 +160,12 @@
                     {% if technology == 'technology' %}
                 <br>
                 <table align="center">
-                <tr><td><h3>Technology</h3></td></tr>
+                <tr><td><h3 align="center">Technology</h3></td></tr>
                 <tr>
                     <td>
                             <table align="center">
                                 {% for x in tech %}
-                                    <tr><th><a href="/showmodtech/?type={{ x.article_headline }}">{{ x.article_headline }} </a> </th></tr><br>
+                                    <tr><th><a href="/showmodtech/?type={{ x.article_headline }}-{{ data.email }}">{{ x.article_headline }} </a> </th></tr><br>
 
                                 {% endfor %}
 
@@ -179,9 +178,10 @@
                 {% if showmodtech == 'showmodtech' %}
                     <br>
                 <table align="center">
+                <tr><h4 align="center">Technology</h4></tr>
                     <tr>
                         <th>
-                            {% for x in data %}
+                            {% for x in tech %}
                             <tr>
                                 <th>Discription :</th>
                             </tr>
@@ -201,7 +201,7 @@
                 <tr>
                     <td>
                         {% for x in heal %}
-                        <a href="/showmodhealth/?type={{ x.article_headline }}">{{ x.article_headline }}</a><br>
+                        <a href="/showmodhealth/?type={{ x.article_headline }}-{{ data.email }}">{{ x.article_headline }}</a><br>
                     {% endfor %}
 
                     </td>
@@ -212,9 +212,10 @@
                 {% if showmodhealth == 'showmodhealth' %}
                     <br>
                     <table align="center">
+                    <tr><h3 align="center">Health</h3></tr>
                         <tr>
                             <th>
-                                {% for x in data %}
+                                {% for x in heal %}
                                     <tr><th> Didcription :</th></tr>
                                     <tr><td>{{ x.article_dicription }}</td></tr>
                                 {% endfor %}
@@ -267,33 +268,114 @@
             {% csrf_token %}
             <table align="center">
             <tr><h3 align="center"> Validate Post</h3></tr>
-                <tr><td><input type="text" placeholder="Enter Article Type" name="art_type"></td></tr>
+                <tr><th align="center" >
+                <select name="art_type" required>
+                    <option>--Select Type--</option>
+                    <option>fashion</option>
+                    <option>technology</option>
+                    <option>health</option>
+                </select>
+                </th></tr>
                 <tr><td><input type="submit" value="search"></td></tr>
-                <tr><th>{{ type }}</th></tr>
             </table>
             </form>
         {% endif %}
 
-        {% if validate == 'validate'%}
-            <form action="/sendmail/?type={{ data.email }}" method="post">
+        {% if validate == 'validate' %}
+
             {% csrf_token %}
-            <table align="center">
+            <tr align="center">
+            <tr><td><h4 align="center">{{ art_type }}</h4></td></tr>
             <tr><th>
                 {% for x in articles %}
-                   <tr><td>head line :</td><td>{{ x.article_headline }}</td></tr> <br>
+                    <tr><td>{{ x.article_image }}</td></tr><br>
+                    <tr><td>head line :</td><td>{{ x.article_headline }}</td></tr> <br>
                    <tr><td>Discription :</td><td>{{ x.article_dicription }}</td></tr><br>
+                   <tr><td><form action="/valid/?type={{ x.article_type }}-{{ data.email }}" method="post">
+                       {% csrf_token %}
+                       <input type="submit" value="valid">
+                   </form>
+                   </td></tr>
+                   <tr><td><form action="/send/?type={{ x.article_headline }}-{{ data.email }}" method="post">
+                       {% csrf_token %}
+                       <input type="submit" value="Send Email">
+                   </form>
+                   </td></tr>
                 {% endfor %}
             </th></tr>
-            <tr><td><input type="text" name="to" placeholder="enter email-id's"></td></tr>
-            <tr><td><input type="text" placeholder="Enter message" name="message"></td></tr>
-            <tr><td><input type="text" placeholder="Enter subject" name="subject"></td></tr>
+            <tr><th align="center"></th>{{ message }}</tr>
+            </table>
+        {% endif %}
+
+        {% if valid == 'valid' %}
+            <form action="/validarticle/?type={{ data.email }}" method="post">
+            {% csrf_token %}
+            <table align="center">
+                <tr><th><input type="hidden" name="article_type" value="{{ art.article_type }}"></th></tr>
+                <tr><td><img src="{% static 'images/' %}{{ art.article_image }}.png" name="article_image"></td></tr>
+                <tr><td><input type="text" name="article_headline" value="{{ art.article_headline }}" ></td></tr>
+                <tr><td><input type="text" name="article_dicription" value="{{ art.article_dicription }}" ></td>
+                <tr><td><input type="submit" value="valid article"></td></tr>
+            </table>
+            </form>
+        {% endif %}
+
+        {% if sendmail == 'sendmail' %}
+            <form action="/sent/?type={{ data.email }}" method="post">
+            {% csrf_token %}
+            <table align="center">
+            <tr><td>Mail Sending</td></tr>
+            <tr><td><input type="text" name="to" placeholder="enter email-id's" value="{{ article.user_email }}"></td></tr>
+            <tr><td><input type="text" placeholder="Enter message" name="message" ></td></tr>
+            <tr><td><input type="text" placeholder="Enter subject" name="subject" value=""></td></tr>
                 <tr><td><input type="submit" value="sent"></td></tr>
             <tr><th>{{ replay }}</th></tr>
             </table>
             </form>
         {% endif %}
 
-
+        <!-- aboutus -->
+        {% if type == "aboutus" %}
+        <br>
+        <table align="center" >
+        <tr>
+            <td colspan="2"><h2> About us </h2></td>
+        </tr>
+        </table>
+        <!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-5">
+					<div class="section-row">
+						<div class="section-title">
+							<h2 class="title">Our Mission</h2>
+						</div>
+						<p>Our mission as an online news magazine is to ensure that Realnews,To be Earth’s most customer-centric company, where customers can find fact in the world.Organize the world’s information and make it universally accessible and useful. </p>
+						<blockquote class="blockquote">
+							<p>Infuse your life with action. Don't wait for it to happen. Make it happen. Make your own future. Make your own hope. Make your own love. And whatever your beliefs, honor your creator, not by passively waiting for grace to come down from upon high, but by doing what you can to make grace happen... yourself, right now, right down here on Earth.</p>
+							<footer class="blockquote-footer">Bradley Whitford</footer>
+						</blockquote>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="section-row">
+						<div class="section-title">
+							<h2 class="title">Our Vision</h2>
+						</div>
+						<p>We will publish a credible and influential magazine that will galvanise the public especially the government and decision makers into taking actions that will change the political, socio-economic landscape and society in general for the better.</p>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+    {% endif %}
 
 
 
@@ -317,10 +399,10 @@
 						</div>
 						<p>Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.</p>
 						<ul class="contact-social">
-							<li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
+{#							<li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>#}
+{#							<li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>#}
+{#							<li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>#}
+{#							<li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>#}
 						</ul>
 					</div>
 				</div>
@@ -336,14 +418,14 @@
 			<div class="footer-bottom row">
 				<div class="col-md-6 col-md-push-6">
 					<ul class="footer-nav">
-						<li><a href="/openhome/?type=h_user_home">Home</a></li>
-						<li><a href="/aboutus/">About Us</a></li>
+						<li><a href="/openmoderatorhome/?type={{ data.email }}">Home</a></li>
+						<li><a href="/openmodaboutus/?type={{ data.email }}">About Us</a></li>
                     </ul>
 				</div>
 				<div class="col-md-6 col-md-pull-6">
 					<div class="footer-copyright">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Rockstar</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</div>
 				</div>
